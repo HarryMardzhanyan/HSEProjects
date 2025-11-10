@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "dino.h": "c",
+        "createfield.h": "c",
+        "stdio.h": "c",
+        "locale": "c",
+        "string.h": "c",
+        "stdlib.h": "c"
+    }
+}
