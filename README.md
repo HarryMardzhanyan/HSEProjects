@@ -1,6 +1,9 @@
 Для запуска:
+
 gcc movdinolauncher.c createfield.c dinoactions.c visualizefield.c -o movdinolauncher.exe
+
 ./movdinolauncher.exe input.txt output.txt ...
+
 Первыми должны быть написаны данные тры параметра (./movdinolauncher.exe input.txt output.txt), а далее, вместо многоточия, могут быть написаны опции interval N (N - минимум 1), no-display и no-save.
 Любая другая опция будет проигнорирована. А также будет выведено предупреждение.
 
