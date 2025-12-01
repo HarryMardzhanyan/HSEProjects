@@ -214,6 +214,7 @@ int dig_cell(char *const line, struct Dino *dino, struct Field *field) {
 }
 
 
+
 int mound_cell(char *const line, struct Dino *dino, struct Field *field, struct Field *colors) {
     char *value = calloc(128, sizeof(char));
     char *p = line;

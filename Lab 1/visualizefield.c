@@ -21,7 +21,7 @@ void print_field(struct Field* field, struct VisualizationConfig* visualizationC
     
     if (visualizationConfig->display_enabled) {
         clear_console();
-        delay(1);    // Замораживаем терминал на секунду при отображении следующего хода (создано для красоты)
+        //delay(1);    // Замораживаем терминал на секунду при отображении следующего хода (создано для красоты)
 
         if (cfg == -1) {
             printf("WARNING: You have come across a mountain. The command at line %d will be skipped and the next command will be read.\n", lineNum);
