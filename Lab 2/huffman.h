@@ -1,10 +1,12 @@
-#ifndef HUFFMAN_H
-#define HUFFMAN_H
+#ifndef HUFFMAN_H   // если макрос HUFFMAN_H не определён, то код после этой строчки будет скомпилирован
+#define HUFFMAN_H   // определяем макрос HUFFMAN_H. Когда в следующий раз будет проверка #ifndef HUFFMAN_H, то
+                    // благодаря этому определению проверка не будет пройдена и код второй раз не скомпилируется
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <time.h>
 
 
 // Структура узла дерева Хаффмана

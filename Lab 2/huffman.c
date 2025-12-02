@@ -1,4 +1,5 @@
 #include "huffman.h"
+#define TABLESIZE 256
 
 
 // Структура узла дерева Хаффмана
@@ -248,8 +249,11 @@ void encode_file(const char *input_file, const char *output_file) {
     
     printf("Encoding file %s...\n", input_file);
     
+    // Замеряем время, потраченное на кодировку
+    clock_t start_time = clock();
+
     // Построение таблицы частот
-    unsigned int freq_table[256];
+    unsigned int freq_table[TABLESIZE];
     build_frequency_table(in, freq_table);
     
     // Построение дерева Хаффмана
@@ -262,10 +266,10 @@ void encode_file(const char *input_file, const char *output_file) {
     }
     
     // Генерация кодов
-    CodeTable code_table[256];
+    CodeTable code_table[TABLESIZE];
     memset(code_table, 0, sizeof(code_table));
     
-    char code_buffer[256];
+    char code_buffer[TABLESIZE];
     generate_codes(root, code_buffer, 0, code_table);
     
     // Запись таблицы частот в выходной файл
@@ -292,10 +296,14 @@ void encode_file(const char *input_file, const char *output_file) {
     long original_size = ftell(in);
     fseek(out, 0, SEEK_END);
     long compressed_size = ftell(out);
+
+    clock_t end_time = clock();
+    double time_spent = (double)(end_time - start_time) / CLOCKS_PER_SEC;
     
     printf("Original size: %ld bytes\n", original_size);
     printf("Compressed size: %ld bytes\n", compressed_size);
     printf("Compression ratio: %.2f\n", (double)compressed_size / original_size);
+    printf("Time encoding: %.4f seconds\n", time_spent);
     
     // Освобождение ресурсов
     free_tree(root);
@@ -323,9 +331,12 @@ void decode_file(const char *input_file, const char *output_file) {
     }
     
     printf("Decoding file %s...\n", input_file);
+
+    // Замеряем время, потраченно на декодировку
+    clock_t start_time = clock();
     
     // Чтение таблицы частот
-    unsigned int freq_table[256];
+    unsigned int freq_table[TABLESIZE];
     if (fread(freq_table, sizeof(unsigned int), 256, in) != 256) {
         printf("ERROR: Invalid compressed file format\n");
         fclose(in);
@@ -378,7 +389,11 @@ void decode_file(const char *input_file, const char *output_file) {
             }
         }
     }
+
+    clock_t end_time = clock();
+    double time_spent = (double)(end_time - start_time) / CLOCKS_PER_SEC;
     
+    printf("Time decoding: %.4f seconds\n", time_spent);
     printf("Decoding completed. Result in %s\n", output_file);
     
     free_tree(root);
