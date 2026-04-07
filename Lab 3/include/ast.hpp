@@ -37,7 +37,6 @@ class Visitor;
 // Абстрактная структура для всех узлов для дерева AST
 struct ASTNode {
     virtual ~ASTNode() = default;                            // Виртуальный деструктор
-    virtual NodeType get_type() const = 0;                   // Функция для получения типа узла
     virtual std::string to_string() const = 0;               // Функция для преобразования в строку
     virtual std::unique_ptr<ASTNode> clone() const = 0;      // Функция для создания копии
     virtual void accept(Visitor& visitor) = 0;               // Функция для принятия посетителя, то есть чтобы посетить узел
@@ -51,7 +50,6 @@ struct NumberNode : public ASTNode {
     explicit NumberNode(double val);                         // Конструктор от числа
 
     // Атрибуты наследуемой структуры
-    NodeType get_type() const override {return NodeType::NUMBER;}
     std::string to_string() const override;
     std::unique_ptr<ASTNode> clone() const override;
     void accept(Visitor& visitor) override;
@@ -65,7 +63,6 @@ struct VariableNode : public ASTNode {
     explicit VariableNode(std::string nm);                   // Конструктор от переменной
 
     // Атрибуты наследуемой структуры
-    NodeType get_type() const override {return NodeType::VARIABLE;}
     std::string to_string() const override;
     std::unique_ptr<ASTNode> clone() const override;
     void accept(Visitor& visitor) override;
@@ -80,7 +77,6 @@ struct FunctionNode : public ASTNode {
     FunctionNode(Function func, std::unique_ptr<ASTNode> arg);      // Конструктор функции и его аргумента
 
     // Атрибуты наследуемой структуры
-    NodeType get_type() const override {return NodeType::FUNCTION;}
     std::string to_string() const override;
     std::unique_ptr<ASTNode> clone() const override;
     void accept(Visitor& visitor) override;
@@ -98,7 +94,6 @@ struct BinaryOpNode : public ASTNode {
     BinaryOpNode(BinaryOp o, std::unique_ptr<ASTNode> l, std::unique_ptr<ASTNode> r);      // Конструктор операции (буква o) и его операндов (левого и правого соответственно)
 
     // Атрибуты наследуемой структуры
-    NodeType get_type() const override {return NodeType::BINARY_OP;}
     std::string to_string() const override;
     std::unique_ptr<ASTNode> clone() const override;
     void accept(Visitor& visitor) override;
@@ -113,7 +108,6 @@ struct UnaryOpNode : public ASTNode {
     UnaryOpNode(UnaryOp o, std::unique_ptr<ASTNode> oprnd);
     
     // Атрибуты наследуемой структуры
-    NodeType get_type() const override {return NodeType::UNARY_OP;}
     std::string to_string() const override;
     std::unique_ptr<ASTNode> clone() const override;
     void accept(Visitor& visitor) override;
